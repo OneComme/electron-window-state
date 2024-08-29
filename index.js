@@ -8,7 +8,6 @@ const mkdirp = require('mkdirp');
 module.exports = function (options) {
   const app = electron.app || electron.remote.app;
   const screen = electron.screen || electron.remote.screen;
-  const SAFE_MARGEN = 64
   let state;
   let winRef;
   let stateChangeTimer;
@@ -50,10 +49,10 @@ module.exports = function (options) {
 
   function windowWithinBounds(bounds) {
     return (
-      state.x >= bounds.x &&
-      state.y >= bounds.y &&
-      state.x + SAFE_MARGEN <= bounds.x + bounds.width &&
-      state.y + SAFE_MARGEN <= bounds.y + bounds.height
+      state.x >= bounds.x - state.width / 2 &&
+      state.y >= bounds.y - state.height / 2 &&
+      state.x + state.width / 2 <= bounds.x + bounds.width &&
+      state.y + state.height / 2 <= bounds.y + bounds.height
     );
   }
 
