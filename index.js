@@ -33,13 +33,15 @@ module.exports = function (options) {
       Number.isInteger(state.height) && state.height > 0;
   }
 
-  function resetStateToDefault() {
+  function resetStateToDefault(keepSize = false) {
     const displayBounds = screen.getPrimaryDisplay().bounds;
 
     // Reset state to default values on the primary display
+    const w = config.defaultWidth || 800
+    const h = config.defaultHeight || 600
     state = {
-      width: config.defaultWidth || 800,
-      height: config.defaultHeight || 600,
+      width: keepSize ? state.width || w : w,
+      height: keepSize ? state.height || h : h,
       x: 0,
       y: 0,
       displayBounds
@@ -50,8 +52,8 @@ module.exports = function (options) {
     return (
       state.x >= bounds.x &&
       state.y >= bounds.y &&
-      state.x <= bounds.x + bounds.width &&
-      state.y <= bounds.y + bounds.height
+      state.x + SAFE_MARGEN <= bounds.x + bounds.width &&
+      state.y + SAFE_MARGEN <= bounds.y + bounds.height
     );
   }
 
@@ -64,7 +66,7 @@ module.exports = function (options) {
     if (!visible) {
       // Window is partially or fully not visible now.
       // Reset it to safe defaults.
-      return resetStateToDefault();
+      return resetStateToDefault(true);
     }
   }
 
