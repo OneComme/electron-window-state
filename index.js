@@ -8,6 +8,7 @@ const mkdirp = require('mkdirp');
 module.exports = function (options) {
   const app = electron.app || electron.remote.app;
   const screen = electron.screen || electron.remote.screen;
+  const SAFE_MARGEN = 64
   let state;
   let winRef;
   let stateChangeTimer;
@@ -49,8 +50,8 @@ module.exports = function (options) {
     return (
       state.x >= bounds.x &&
       state.y >= bounds.y &&
-      state.x + state.width <= bounds.x + bounds.width &&
-      state.y + state.height <= bounds.y + bounds.height
+      state.x <= bounds.x + bounds.width &&
+      state.y <= bounds.y + bounds.height
     );
   }
 
@@ -58,6 +59,7 @@ module.exports = function (options) {
     const visible = screen.getAllDisplays().some(display => {
       return windowWithinBounds(display.bounds);
     });
+    
 
     if (!visible) {
       // Window is partially or fully not visible now.
