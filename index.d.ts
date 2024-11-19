@@ -8,6 +8,8 @@ declare namespace windowStateKeeper {
         defaultHeight?: number;
         /** The width that should be returned if no file exists yet. Defaults to `800`. */
         defaultWidth?: number;
+        defaultX?: number;
+        defaultY?: number;
         fullScreen?: boolean;
         /** The path where the state file should be written to. Defaults to `app.getPath('userData')`. */
         path?: string;

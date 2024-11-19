@@ -38,11 +38,13 @@ module.exports = function (options) {
     // Reset state to default values on the primary display
     const w = config.defaultWidth || 800
     const h = config.defaultHeight || 600
+    const x = config.defaultX || 0
+    const y = config.defaultY || 0
     state = {
       width: keepSize ? state.width || w : w,
       height: keepSize ? state.height || h : h,
-      x: 0,
-      y: 0,
+      x: keepSize ? state.x || x : x,
+      y: keepSize ? state.y || y : y,
       displayBounds
     };
   }
@@ -170,7 +172,9 @@ module.exports = function (options) {
   // Set state fallback values
   state = Object.assign({
     width: config.defaultWidth || 800,
-    height: config.defaultHeight || 600
+    height: config.defaultHeight || 600,
+    x: config.defaultX || 0,
+    y: config.defaultY || 0,
   }, state);
 
   return {
