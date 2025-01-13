@@ -43,8 +43,8 @@ module.exports = function (options) {
     state = {
       width: keepSize ? state.width || w : w,
       height: keepSize ? state.height || h : h,
-      x: keepSize ? state.x || x : x,
-      y: keepSize ? state.y || y : y,
+      x,
+      y,
       displayBounds
     };
   }
